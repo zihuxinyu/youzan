@@ -12,7 +12,6 @@ import (
 	"encoding/hex"
 	"github.com/astaxie/beego/httplib"
 	"crypto/tls"
-	"reflect"
 )
 
 
@@ -76,7 +75,7 @@ func (clt *Client) Post(request interface{}, response interface{}) (err error) {
 	params["sign_method"] = apiSignMethod
 
 
-	//先对输入进行mashral，过滤调空值
+	//先对输入进行marshal，过滤空值
 	bytesRequest, err := json.Marshal(request)
 	if err != nil {
 		return
@@ -87,9 +86,8 @@ func (clt *Client) Post(request interface{}, response interface{}) (err error) {
 	if err != nil {
 		return
 	}
-	beego.Error(dat)
+
 	for key, value := range dat {
-		beego.Error(key, value, reflect.TypeOf(value))
 		switch value.(type) {
 		case string:
 			params[key] = value.(string)
