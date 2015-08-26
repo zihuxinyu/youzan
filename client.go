@@ -1,20 +1,21 @@
 package youzan
 import (
 
-	"fmt"
 	"time"
-	"sort"
-	"reflect"
-	"strconv"
 	"net/http"
-	"crypto/tls"
-	"crypto/md5"
 	"encoding/json"
+	"strings"
+//	"reflect"
+//	"github.com/huandu/xstrings"
+	"github.com/astaxie/beego"
+	"strconv"
+	"sort"
+	"fmt"
+	"crypto/md5"
 	"encoding/hex"
-
-	"github.com/huandu/xstrings"
 	"github.com/astaxie/beego/httplib"
-
+	"crypto/tls"
+	"reflect"
 )
 
 
@@ -49,6 +50,18 @@ func NewClient(appId, appSecret string, clt *http.Client) *Client {
 }
 
 
+//查看tag是否指定忽略
+func omitempty(tag string) (bool) {
+	list := strings.Split(tag, ",")
+	for _, v := range list {
+		if v == "omitempty" {
+			return true
+		}
+	}
+	return false
+}
+
+
 func (clt *Client) Post(request interface{}, response interface{}) (err error) {
 
 
@@ -61,24 +74,60 @@ func (clt *Client) Post(request interface{}, response interface{}) (err error) {
 	params["v"] = apiVersion
 	params["sign_method"] = apiSignMethod
 
-	req := reflect.ValueOf(request).Elem()
-	for x := 0; x < req.NumField(); x++ {
 
-		//字段名称
-		key := xstrings.ToSnakeCase(req.Type().Field(x).Name)
-		//字段值
-		value := req.Field(x).Interface()
-
-		switch req.Field(x).Kind() {
-		case reflect.String:
+	//先对输入进行mashral，过滤调空值
+	bytesRequest, err := json.Marshal(request)
+	if err != nil {
+		return
+	}
+	//赋值到map中
+	var dat map[string]interface{}
+	err = json.Unmarshal(bytesRequest, &dat)
+	if err != nil {
+		return
+	}
+	beego.Error(dat)
+	for key, value := range dat {
+		beego.Error(key, value, reflect.TypeOf(value))
+		switch value.(type) {
+		case string:
 			params[key] = value.(string)
-		case reflect.Int:
+		case int:
 			params[key] = strconv.Itoa(value.(int))
-		case reflect.Int64:
+		case int64:
 			params[key] = strconv.FormatInt(value.(int64), 10)
+		case float64:
+			params[key] = strconv.Itoa(int(value.(float64)))
 		}
 	}
 
+
+	//
+	//	//通过反射取值，类型
+	//	reqValue := reflect.ValueOf(request).Elem()
+	//	reqType := reflect.TypeOf(request).Elem()
+	//	for x := 0; x < reqValue.NumField(); x++ {
+	//
+	//
+	//
+	//		//字段名称
+	//		key := xstrings.ToSnakeCase(reqValue.Type().Field(x).Name)
+	//		//字段值
+	//		value := reqValue.Field(x).Interface()
+	//
+	//		omit := omitempty(reqType.Field(x).Tag.Get("json"))
+	//		beego.Error(key, omit, reqValue.Field(x).Interface())
+	//
+	//		switch reqValue.Field(x).Kind() {
+	//		case reflect.String:
+	//			params[key] = value.(string)
+	//		case reflect.Int:
+	//			params[key] = strconv.Itoa(value.(int))
+	//		case reflect.Int64:
+	//			params[key] = strconv.FormatInt(value.(int64), 10)
+	//		}
+	//	}
+	//
 
 
 	//键值按名称升序排列
@@ -88,6 +137,7 @@ func (clt *Client) Post(request interface{}, response interface{}) (err error) {
 	}
 	keys.Sort()
 
+	beego.Info(keys)
 	//键值组合为字符串 将 secret 拼接到参数字符串头、尾
 	linestr := clt.AppSecret
 	for _, v := range keys {
@@ -110,6 +160,7 @@ func (clt *Client) Post(request interface{}, response interface{}) (err error) {
 	b.Param("sign", sign)
 	for _, v := range keys {
 		b.Param(v, params[v])
+		beego.Info(v, params[v])
 	}
 
 
