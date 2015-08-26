@@ -6,9 +6,9 @@ import (
 	"github.com/zihuxinyu/youzan"
 	"github.com/zihuxinyu/youzan/regions/request"
 	"github.com/zihuxinyu/youzan/regions/response"
- )
+)
 const (
-	MethodRegionsGet string = "kdt.regions.get " //获取区域地名列表信息
+	MethodRegionsGet string = "kdt.regions.get" //获取区域地名列表信息
 )
 
 type Client youzan.Client
@@ -18,14 +18,14 @@ func NewClient(appId, appSecret string, clt *http.Client) *Client {
 }
 
 //获取区域地名列表信息
-func (clt *Client)  Get(req *request.Region) (regions []response.CommonRegion, err error) {
+func (clt *Client)  Get(req *request.Region) (regions response.Regions, err error) {
 
-	if req.Method==""{
-		req.Method=MethodRegionsGet
+	if req.Method == "" {
+		req.Method = MethodRegionsGet
 	}
 
 	type result struct {
-		regions []response.CommonRegion   `json:"regions"`
+		response.Regions  `json:"response"`
 		youzan.Error
 	}
 
@@ -40,7 +40,7 @@ func (clt *Client)  Get(req *request.Region) (regions []response.CommonRegion, e
 		err = &res.Error
 	}
 
-	regions = res.regions
+	regions = res.Regions
 
 	return
 }

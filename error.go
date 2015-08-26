@@ -9,7 +9,7 @@ const (
 )
 
 type Error struct {
- 	ErrorResponse struct {
+	ErrorResponse struct {
 		              Code int `json:"code"`
 		              Msg  string `json:"msg"`
 	              } `json:"error_response"`

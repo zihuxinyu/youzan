@@ -102,34 +102,6 @@ func (clt *Client) Post(request interface{}, response interface{}) (err error) {
 	}
 
 
-	//
-	//	//通过反射取值，类型
-	//	reqValue := reflect.ValueOf(request).Elem()
-	//	reqType := reflect.TypeOf(request).Elem()
-	//	for x := 0; x < reqValue.NumField(); x++ {
-	//
-	//
-	//
-	//		//字段名称
-	//		key := xstrings.ToSnakeCase(reqValue.Type().Field(x).Name)
-	//		//字段值
-	//		value := reqValue.Field(x).Interface()
-	//
-	//		omit := omitempty(reqType.Field(x).Tag.Get("json"))
-	//		beego.Error(key, omit, reqValue.Field(x).Interface())
-	//
-	//		switch reqValue.Field(x).Kind() {
-	//		case reflect.String:
-	//			params[key] = value.(string)
-	//		case reflect.Int:
-	//			params[key] = strconv.Itoa(value.(int))
-	//		case reflect.Int64:
-	//			params[key] = strconv.FormatInt(value.(int64), 10)
-	//		}
-	//	}
-	//
-
-
 	//键值按名称升序排列
 	keys := sort.StringSlice{}
 	for k, _ := range params {
@@ -173,6 +145,7 @@ func (clt *Client) Post(request interface{}, response interface{}) (err error) {
 		return
 	}
 
+	beego.Info(string(bytestr))
 
 
 	return
