@@ -2,7 +2,7 @@ package response
 import (
 	"encoding/json"
 )
-
+//交易数据结构
 type TradeDetail struct {
 	Trade Trade `json:"trade"`
 }
@@ -88,16 +88,16 @@ type Trade struct {
 	Profit           string `json:"profit"`
 	Handled          string `json:"handled"`
 	SubTrades        []Trade `json:"sub_trades"`            //交易中包含的子交易，目前：仅在送礼订单中会有子交易
-	Orders           []Order `json:"orders"`                //交易明细列表
-	FetchDetail      Fetch `json:"fetch_detail"`            //如果是到店自提交易，返回自提详情，否则返回空
-	CouponDetails    []Coupon `json:"coupon_details"`       //在交易中使用到的卡券的详情，包括：优惠券、优惠码
-	PromotionDetails []Promotion `json:"promotion_details"` //在交易中使用到优惠活动详情，包括：满减满送
+	Orders           []TradeOrder `json:"orders"`                //交易明细列表
+	FetchDetail      TradeFetch `json:"fetch_detail"`            //如果是到店自提交易，返回自提详情，否则返回空
+	CouponDetails    []UmpTradeCoupon `json:"coupon_details"`       //在交易中使用到的卡券的详情，包括：优惠券、优惠码
+	PromotionDetails []TradePromotion `json:"promotion_details"` //在交易中使用到优惠活动详情，包括：满减满送
 
 }
 
 
 //交易明细数据结构
-type Order struct {
+type TradeOrder struct {
 	Oid                   int64 `json:"oid"`                                //交易明细编号。该编号并不唯一，只用于区分交易内的多条明细记录
 	NumIid                json.Number `json:"num_iid"`                      //商品数字编号
 	SkuID                 json.Number `json:"sku_id"`                       //Sku的ID，sku_id 在系统里并不是唯一的，结合商品ID一起使用才是唯一的。
@@ -117,16 +117,16 @@ type Order struct {
 	PicPath               string `json:"pic_path"`                          //商品主图片地址
 	PicThumbPath          string `json:"pic_thumb_path"`                    //商品主图片缩略图地址
 	ItemType              int `json:"item_type"`                            //商品类型。0：普通商品；10：分销商品
-	BuyerMessages         []BuyerMessage  `json:"buyer_messages"`           //交易明细中的买家留言列表
-	OrderPromotionDetails []OrderPromotion `json:"order_promotion_details"` //交易明细中的优惠信息列表
+	BuyerMessages         []TradeBuyerMessage  `json:"buyer_messages"`           //交易明细中的买家留言列表
+	OrderPromotionDetails []TradeOrderPromotion `json:"order_promotion_details"` //交易明细中的优惠信息列表
 }
 
 //交易明细中买家留言的数据结构
-type BuyerMessage struct {
+type TradeBuyerMessage struct {
 	Title   string `json:"title"`   //留言的标题
 	Content string `json:"content"` //留言内容
 }
-type  OrderPromotion struct {
+type TradeOrderPromotion struct {
 	PromotionName string `json:"promotion_name"`    //优惠的名称
 	PromotionType string `json:"promotion_type"`    //优惠的类型。可选值：
                                                     //	MEMBER_CARD_DISCOUNT（会员卡折扣）
@@ -138,7 +138,7 @@ type  OrderPromotion struct {
 }
 
 //到店自提详情
-type Fetch struct {
+type TradeFetch struct {
 	FetcherName   string `json:"fetcher_name"`   //领取人（即：预约人）的姓名
 	FetcherMobile string `json:"fetcher_mobile"` //领取人的手机号
 	FetchTime     string `json:"fetch_time"`     //预约的领取时间
@@ -151,7 +151,7 @@ type Fetch struct {
 }
 
 //订单中使用到的卡券的数据结构
-type  Coupon struct {
+type  UmpTradeCoupon struct {
 	CouponID          int64 `json:"coupon_id"`           //该组卡券的ID
 	CouponName        string `json:"coupon_name"`        //该组卡券的名称
 	CouponType        string `json:"coupon_type"`        //卡券的类型。可选值：PROMOCARD（优惠券）、PROMOCODE（优惠码）
@@ -164,7 +164,7 @@ type  Coupon struct {
 }
 
 //订单中使用到的优惠活动的数据结构
-type Promotion struct {
+type TradePromotion struct {
 	PromotionID        int64 `json:"promotion_id"`         //该优惠活动的ID
 	PromotionName      string `json:"promotion_name"`      //该优惠活动的名称
 	PromotionType      string `json:"promotion_type"`      //优惠的类型。可选值：FULLREDUCE（满减满送）
