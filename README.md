@@ -10,7 +10,7 @@
 
 ## 联系方式
 
- 微信群聊:    ![群聊二维码{300*300}](https://github.com/zihuxinyu/youzan/blob/master/youzan.jpg)
+ 微信群聊:    ![群聊二维码](https://github.com/zihuxinyu/youzan/blob/master/youzan.jpg)
 
 
 ##通讯协议
