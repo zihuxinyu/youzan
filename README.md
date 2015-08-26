@@ -10,8 +10,7 @@
 
 ## 联系方式
 
-邮箱:        weibaohui@gmail.com
-微信群聊:    ![群聊二维码]()
+ 微信群聊:    ![群聊二维码](https://github.com/zihuxinyu/youzan/blob/master/youzan.jpg)
 
 
 ##通讯协议
