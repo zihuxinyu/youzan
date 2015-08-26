@@ -60,7 +60,7 @@ kdt.logistics.trace.search 物流流转信息查询
 
 ##店铺接口
 
-kdt.shop.basic.get 获取店铺基本信息
+√ kdt.shop.basic.get 获取店铺基本信息
 
 ##交易接口
 
