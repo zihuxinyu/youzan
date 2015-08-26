@@ -1,5 +1,6 @@
 package request
+import "github.com/zihuxinyu/youzan"
 
 type Basic struct {
-	Method string `json:"method"`
+	youzan.CommonHeader
 }

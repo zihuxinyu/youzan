@@ -25,6 +25,10 @@ const (
 	apiVersion string = "1.0" //API协议版本
 	apiSignMethod string = "md5" //参数的加密方法
 )
+type CommonHeader struct {
+	Method string `json:"method"`
+}
+
 
 type Client struct {
 	AppId      string
@@ -139,13 +143,24 @@ func (clt *Client) Post(request interface{}, response interface{}) (err error) {
 
 
 
+//
+//	HttpResp, err := b.Response()
+//
+//
+//	if err != nil {
+//		return
+//	}
+//	if err = json.NewDecoder(HttpResp.Body).Decode(response); err != nil {
+//		return
+//	}
+	//
 	bytestr, _ := b.Bytes()
+	beego.Info(string(bytestr))
+
 	err = json.Unmarshal(bytestr, response)
 	if err != nil {
 		return
 	}
-
-	beego.Info(string(bytestr))
 
 
 	return

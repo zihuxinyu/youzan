@@ -1,8 +1,8 @@
 package request
+import "github.com/zihuxinyu/youzan"
 
 type Region struct {
-	Method   string `json:"method"`
-
+	youzan.CommonHeader
 	Level    int64 `json:"level"`                 // 必须 是 要获取的区域等级，
                                                   //          0 获取所有区域列表，
                                                   //          1 获取省份列表，
