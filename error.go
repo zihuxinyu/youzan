@@ -4,8 +4,6 @@ import "fmt"
 
 const (
 	ErrCodeOK = 0
-	ErrCodeAccessTokenExpired = 42001 // access_token 过期(无效)返回这个错误
-	ErrCodeSuiteAccessTokenExpired = 42009 // suite_access_token 过期(无效)返回这个错误
 )
 
 type Error struct {

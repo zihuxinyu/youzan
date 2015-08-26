@@ -81,3 +81,21 @@ kdt.users.weixin.followers.get 查询微信粉丝用户信息
 ##工具接口
 
 √ kdt.regions.get 获取区域地名列表信息
+
+
+
+#使用方法
+```
+	appId := "xxxxxxxxx"
+	appSecret := "xxxxxxxxxxxxxxxxxxxxxxxx"
+
+
+	clt := trade.NewClient(appId, appSecret, nil)
+	sold := new(request.Sold)
+	sold.UseHasNext = false
+	sold.Status = request.Status_WAIT_SELLER_SEND_GOODS
+	sold.PageNo = 2
+	sold.PageSize = 10
+	list, err := clt.GetSold(sold)
+
+```
