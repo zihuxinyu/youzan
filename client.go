@@ -5,9 +5,6 @@ import (
 	"net/http"
 	"encoding/json"
 	"strings"
-//	"reflect"
-//	"github.com/huandu/xstrings"
-	"github.com/astaxie/beego"
 	"strconv"
 	"sort"
 	"fmt"
@@ -113,7 +110,6 @@ func (clt *Client) Post(request interface{}, response interface{}) (err error) {
 	}
 	keys.Sort()
 
-	beego.Info(keys)
 	//键值组合为字符串 将 secret 拼接到参数字符串头、尾
 	linestr := clt.AppSecret
 	for _, v := range keys {
@@ -136,26 +132,25 @@ func (clt *Client) Post(request interface{}, response interface{}) (err error) {
 	b.Param("sign", sign)
 	for _, v := range keys {
 		b.Param(v, params[v])
-		beego.Info(v, params[v])
 	}
 
 
 
 
 
-//
-//	HttpResp, err := b.Response()
-//
-//
-//	if err != nil {
-//		return
-//	}
-//	if err = json.NewDecoder(HttpResp.Body).Decode(response); err != nil {
-//		return
-//	}
 	//
+	//	HttpResp, err := b.Response()
+	//
+	//
+	//	if err != nil {
+	//		return
+	//	}
+	//	if err = json.NewDecoder(HttpResp.Body).Decode(response); err != nil {
+	//		return
+	//	}
+
 	bytestr, _ := b.Bytes()
-	beego.Info(string(bytestr))
+
 
 	err = json.Unmarshal(bytestr, response)
 	if err != nil {
