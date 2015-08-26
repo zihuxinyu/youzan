@@ -10,7 +10,7 @@
 
 1、AccessToken 免签名通讯协议 适用于：ERP开发商、ISV开发商
 
-2、AppId / AppSecret 签名通讯协议 适用于：个人开发者、单店铺开发者
+√ 2、AppId / AppSecret 签名通讯协议 适用于：个人开发者、单店铺开发者
 
 全局错误返回码说明
 
@@ -85,7 +85,7 @@ kdt.users.weixin.followers.get 查询微信粉丝用户信息
 
 
 #使用方法
-```
+```获取待发货订单
 	appId := "xxxxxxxxx"
 	appSecret := "xxxxxxxxxxxxxxxxxxxxxxxx"
 
