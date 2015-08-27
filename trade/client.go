@@ -104,6 +104,7 @@ func (clt *Client)  MemoUpdate(req *request.MemoUpdate) (resp response.TradeDeta
 	return
 }
 
+//查询卖家已卖出的交易列表
 func (clt *Client)  GetSold(req *request.Sold) (resp response.Sold, err error) {
 
 	if req.Method == "" {
