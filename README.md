@@ -71,11 +71,11 @@ kdt.logistics.trace.search 物流流转信息查询
 
 ##交易接口
 
-kdt.trade.close 卖家关闭一笔交易
+√ kdt.trade.close 卖家关闭一笔交易
 
 √ kdt.trade.get 获取单笔交易的信息
 
-kdt.trade.memo.update 修改一笔交易备注
+√ kdt.trade.memo.update 修改一笔交易备注
 
 √ kdt.trades.sold.get 查询卖家已卖出的交易列表
 

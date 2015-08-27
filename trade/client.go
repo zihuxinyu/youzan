@@ -10,6 +10,8 @@ import (
 const (
 	MethodTradeGet   string = "kdt.trade.get" //获取单笔交易的信息
 	MethodTradeGetSold string = "kdt.trades.sold.get"//查询卖家已卖出的交易列表
+	MethodTradeClose  string = "kdt.trade.close"// 卖家关闭一笔交易
+	MethodTradeMemoUpdate string = "kdt.trade.memo.update"// 修改一笔交易备注
 )
 type Client youzan.Client
 
@@ -45,6 +47,62 @@ func (clt *Client)  Get(req *request.Single) (resp response.TradeDetail, err err
 	return
 }
 
+//卖家关闭一笔交易
+func (clt *Client)  Close(req *request.Close) (resp response.TradeDetail, err error) {
+
+	if req.Method == "" {
+		req.Method = MethodTradeClose
+	}
+
+	type result struct {
+		response.TradeDetail   `json:"response"`
+		youzan.Error
+	}
+
+
+	res := new(result)
+
+	err = ((*youzan.Client)(clt)).Post(req, &res)
+	if err != nil {
+		return
+	}
+	if res.ErrorResponse.Code != youzan.ErrCodeOK {
+		err = &res.Error
+	}
+
+	resp = res.TradeDetail
+
+	return
+}
+
+
+//修改一笔交易备注
+func (clt *Client)  MemoUpdate(req *request.MemoUpdate) (resp response.TradeDetail, err error) {
+
+	if req.Method == "" {
+		req.Method = MethodTradeMemoUpdate
+	}
+
+	type result struct {
+		response.TradeDetail   `json:"response"`
+		youzan.Error
+	}
+
+
+	res := new(result)
+
+	err = ((*youzan.Client)(clt)).Post(req, &res)
+	if err != nil {
+		return
+	}
+	if res.ErrorResponse.Code != youzan.ErrCodeOK {
+		err = &res.Error
+	}
+
+	resp = res.TradeDetail
+
+	return
+}
 
 func (clt *Client)  GetSold(req *request.Sold) (resp response.Sold, err error) {
 

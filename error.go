@@ -13,6 +13,8 @@ type Error struct {
 	              } `json:"error_response"`
 }
 
+
+
 func (e *Error) Error() string {
 	return fmt.Sprintf("errcode: %d, errmsg: %s", e.ErrorResponse.Code, e.ErrorResponse.Msg)
 }

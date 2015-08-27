@@ -21,6 +21,8 @@ const (
 	apiVersion string = "1.0" //API协议版本
 	apiSignMethod string = "md5" //参数的加密方法
 )
+
+//request base struct
 type CommonHeader struct {
 	Method string `json:"method"`
 }
