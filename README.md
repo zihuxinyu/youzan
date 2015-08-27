@@ -109,3 +109,7 @@
 	list, err := clt.GetSold(sold)
 
 ```
+###上传图片
+```golang
+add.Images = "/path/to/image.png"
+```
