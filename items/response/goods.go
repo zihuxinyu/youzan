@@ -4,21 +4,21 @@ import "encoding/json"
 //Sku数据结构
 type GoodsSku struct {
 	OuterId            string `json:"outer_id"`                      //商家编码（商家为Sku设置的外部编号）
-	SkuId              string `json:"sku_id"`                        //Sku的ID，sku_id 在系统里并不是唯一的，结合商品ID一起使用才是唯一的。
+	SkuId              int64 `json:"sku_id"`                         //Sku的ID，sku_id 在系统里并不是唯一的，结合商品ID一起使用才是唯一的。
 	SkuUniqueCode      string `json:"sku_unique_code"`               //Sku在系统中的唯一编号，可以在开发者的系统中用作 Sku 的唯一ID，但不能用于调用接口
-	NumIid             string `json:"num_iid"`                       //Sku所属商品的数字编号
-	Quantity           string `json:"quantity"`                      //属于这个Sku的商品的数量
+	NumIid             json.Number `json:"num_iid"`                  //Sku所属商品的数字编号
+	Quantity           json.Number `json:"quantity"`                 //属于这个Sku的商品的数量
 	PropertiesName     string `json:"properties_name"`               //Sku所对应的销售属性的中文名字串，格式如：pid1:vid1:pid_name1:vid_name1;pid2:vid2:pid_name2:vid_name2……
 	PropertiesNameJson json.RawMessage `json:"properties_name_json"` //Sku所对应的销售属性的Json字符串（需另行解析）， 该字段内容与properties_name字段除了格式不一样，内容完全一致。 由于产品规格信息难以避免涉及到‘:’、‘,’、‘;’这些与解析规则冲突的字符，所以增加该字段。
-	WithHoldQuantity   string `json:"with_hold_quantity"`            //商品在付款减库存的状态下，该Sku上未付款的订单数量
-	Price              string `json:"price"`                         //商品的这个Sku的价格；精确到2位小数；单位：元
+	WithHoldQuantity   json.Number `json:"with_hold_quantity"`       //商品在付款减库存的状态下，该Sku上未付款的订单数量
+	Price              json.Number `json:"price"`                    //商品的这个Sku的价格；精确到2位小数；单位：元
 	Created            string `json:"created"`                       //Sku创建日期，时间格式：yyyy-MM-dd HH:mm:ss
 	Modified           string `json:"modified"`                      //Sku最后修改日期，时间格式：yyyy-MM-dd HH:mm:ss
 }
 
 //商品图片数据结构
 type GoodsImage   struct {
-	ID        int `json:"id"`           //商品图片的ID
+	ID        json.Number `json:"id"`   //商品图片的ID
 	Created   string `json:"created"`   //图片创建时间，时间格式：yyyy-MM-dd HH:mm:ss
 	URL       string `json:"url"`       //图片链接地址
 	Thumbnail string `json:"thumbnail"` //图片缩略图链接地址
@@ -61,7 +61,7 @@ type  GoodsQrcode  struct {
 
 //商品数据结构
 type GoodsDetail struct {
-	NumIid              int `json:"num_iid"`                  //商品数字编号
+	NumIid              json.Number `json:"num_iid"`          // 商品数字编号//todo 官方标记number 输出为string
 	Alias               string `json:"alias"`                 //商品别称
 	Title               string `json:"title"`                 //商品标题
 	Cid                 int `json:"cid"`                      //商品分类的叶子类目id，可参考API：kdt.itemcategories.get
@@ -71,7 +71,7 @@ type GoodsDetail struct {
 	OriginPrice         string `json:"origin_price"`          //显示在“原价”一栏中的信息
 	OuterID             string `json:"outer_id"`              //商品货号（商家为商品设置的外部编号，可与商家外部系统对接）
 	OuterBuyURL         string `json:"outer_buy_url"`         //商品外部购买链接
-	BuyQuota            int `json:"buy_quota"`                //每人限购多少件。0代表无限购，默认为0
+	BuyQuota            json.Number `json:"buy_quota"`        //每人限购多少件。0代表无限购，默认为0
 	Created             string `json:"created"`               //商品的发布时间
 	IsVirtual           bool `json:"is_virtual"`              //是否为虚拟商品
 	IsListing           bool `json:"is_listing"`              //商品上架状态。true 为已上架，false 为已下架
@@ -83,9 +83,9 @@ type GoodsDetail struct {
 	ShareURL            string `json:"share_url"`             //分享出去的商品详情url
 	PicURL              string `json:"pic_url"`               //商品主图片地址
 	PicThumbURL         string `json:"pic_thumb_url"`         //商品主图片缩略图地址
-	Num                 int `json:"num"`                      //商品数量
-	SoldNum             int `json:"sold_num"`                 //商品销量
-	Price               int `json:"price"`                    //商品价格，格式：5.00；单位：元；精确到：分
+	Num                 json.Number `json:"num"`              //商品数量
+	SoldNum             json.Number `json:"sold_num"`         //商品销量
+	Price               json.Number `json:"price"`            //商品价格，格式：5.00；单位：元；精确到：分
 	PostType            int `json:"post_type"`                //运费类型。 1：统一邮费 2：运费模版;
 	PostFee             string `json:"post_fee"`              //运费（针对“统一运费”），格式：5.00；单位：元；精确到：分
 	DeliveryTemplateFee string `json:"delivery_template_fee"` //运费（针对“运费模版”），格式：5.00；单位：元；精确到：分 若存在运费区间，中间用逗号隔开，如 “5.00,9.00”
@@ -94,8 +94,8 @@ type GoodsDetail struct {
 	ItemQrcodes         []GoodsQrcode `json:"item_qrcodes"`   //商品二维码列表。
 	ItemTags            []GoodsTag`json:"item_tags"`          //商品标签数据结构
 	ItemType            int `json:"item_type"`                //商品类型。
-                                                              //0：普通商品；
-                                                              //10：分销商品;
+                                                              //                                                              //0：普通商品；
+                                                              //                                                              //10：分销商品;
 	IsSupplierItem      bool `json:"is_supplier_item"`        //是否是供货商商品
 	LikeCount           int `json:"like_count"`               //喜欢数目
 
@@ -105,5 +105,5 @@ type GoodsDetail struct {
 //商品列表
 type GoodsList struct {
 	Items        []GoodsDetail`json:"items"`
-	TotalResults int `json:"total_results"`
+	TotalResults json.Number `json:"total_results"` //todo 官方标记number 输出为string
 }

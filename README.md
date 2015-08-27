@@ -25,27 +25,27 @@
 
 ##商品接口
 
-kdt.item.add 新增一个商品
+√ kdt.item.add 新增一个商品
 
-kdt.item.delete 删除一个商品
+√ kdt.item.delete 删除一个商品
 
-kdt.item.get 得到单个商品信息
+√ kdt.item.get 得到单个商品信息
 
-kdt.item.sku.update 更新SKU信息
+√ kdt.item.sku.update 更新SKU信息
 
-kdt.item.update 更新单个商品信息
+√ kdt.item.update 更新单个商品信息
 
-kdt.item.update.delisting 商品下架
+√ kdt.item.update.delisting 商品下架
 
-kdt.item.update.listing 商品上架
+√ kdt.item.update.listing 商品上架
 
-kdt.items.custom.get 根据商品货号获取商品
+√ kdt.items.custom.get 根据商品货号获取商品
 
-kdt.items.inventory.get 获取仓库中的商品列表
+√ kdt.items.inventory.get 获取仓库中的商品列表
 
-kdt.items.onsale.get 获取出售中的商品列表
+√ kdt.items.onsale.get 获取出售中的商品列表
 
-kdt.skus.custom.get 根据外部编号取商品Sku
+√ kdt.skus.custom.get 根据外部编号取商品Sku
 
 ##商品类目接口
 

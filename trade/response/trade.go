@@ -7,7 +7,7 @@ type Trade struct {
 	Tid              string `json:"tid"`                         //交易编号
 	Num              int64   `json:"num"`                        //商品购买数量。当一个trade对应多个order的时候，值为所有商品购买数量之和
 	NumIid           string  `json:"num_iid"`                    //商品数字编号。当一个trade对应多个order的时候，值为第一个交易明细中的商品的编号
-	Price            string  `json:"price"`                      //商品价格。精确到2位小数；单位：元。当一个trade对应多个order的时候，值为第一个交易明细中的商品的价格
+	Price            json.Number  `json:"price"`                 //商品价格。精确到2位小数；单位：元。当一个trade对应多个order的时候，值为第一个交易明细中的商品的价格
 	PicPath          string `json:"pic_path"`                    //商品主图片地址。当一个trade对应多个order的时候，值为第一个交易明细中的商品的图片地址
 	PicThumbPath     string `json:"pic_thumb_path"`              //商品主图片缩略图地址
 	Title            string `json:"title"`                       //交易标题，以首个商品标题作为此标题的值
@@ -18,9 +18,9 @@ type Trade struct {
                                                                  //PRESENT （赠品领取）
                                                                  //COD （货到付款）
                                                                  //QRCODE（扫码商家二维码直接支付的交易）
-	WeixinUserID     json.Number  `json:"weixin_user_id"`        //微信粉丝ID
-	BuyerType        json.Number `json:"buyer_type"`             //买家类型，取值范围：0 为未知，1 为微信粉丝，2 为微博粉丝
-	BuyerID          json.Number `json:"buyer_id"`               //买家ID，当 buyer_type 为 1 时，buyer_id 的值等于 weixin_user_id 的值
+	WeixinUserID     string   `json:"weixin_user_id"`            //微信粉丝ID
+	BuyerType        string  `json:"buyer_type"`                 //买家类型，取值范围：0 为未知，1 为微信粉丝，2 为微博粉丝
+	BuyerID          json.Number  `json:"buyer_id"`                   // 买家ID，当 buyer_type 为 1 时，buyer_id 的值等于 weixin_user_id 的值
 	BuyerNick        string `json:"buyer_nick"`                  //买家昵称
 	BuyerMessage     string `json:"buyer_message"`               //买家购买附言
 

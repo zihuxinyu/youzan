@@ -12,6 +12,7 @@ import (
 	"encoding/hex"
 	"github.com/astaxie/beego/httplib"
 	"crypto/tls"
+	"github.com/astaxie/beego"
 )
 
 
@@ -89,7 +90,12 @@ func (clt *Client) Post(request interface{}, response interface{}) (err error) {
 		return
 	}
 
+	hasFile := false//不包含文件
 	for key, value := range dat {
+		if strings.HasSuffix(key, "images[]") {
+			hasFile = true
+			continue
+		}
 		switch value.(type) {
 		case string:
 			params[key] = value.(string)
@@ -118,6 +124,8 @@ func (clt *Client) Post(request interface{}, response interface{}) (err error) {
 	linestr = fmt.Sprintf("%s%s", linestr, clt.AppSecret)
 
 
+	beego.Info(linestr)
+
 	//计算字符串MD5,要求小写
 	h := md5.New()
 	h.Write([]byte(linestr))
@@ -128,12 +136,21 @@ func (clt *Client) Post(request interface{}, response interface{}) (err error) {
 	b := httplib.Post(apiEntry)
 	b.SetTLSClientConfig(&tls.Config{InsecureSkipVerify: true})
 
+
+	if hasFile {
+		//上传文件 todo 对图片进行拼接后上传，采用原生http client
+		paths := dat["images[]"].(string)
+		for _, v := range strings.Split(paths, ",") {
+			b.PostFile("images[]", v)
+		}
+	}
+
 	//设置签名
 	b.Param("sign", sign)
 	for _, v := range keys {
+		beego.Info(v, params[v])
 		b.Param(v, params[v])
 	}
-
 
 
 
@@ -151,7 +168,7 @@ func (clt *Client) Post(request interface{}, response interface{}) (err error) {
 
 	bytestr, _ := b.Bytes()
 
- 	err = json.Unmarshal(bytestr, response)
+	err = json.Unmarshal(bytestr, response)
 	if err != nil {
 		fmt.Println(string(bytestr))
 		return
