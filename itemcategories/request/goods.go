@@ -13,5 +13,5 @@ type TagsGetPage struct {
 // 获取商品自定义标签列表
 type TagsGet struct {
 	youzan.CommonHeader
-	IsSort bool `json:"is_sort,omitempty"` //是否排序（按序号）
+	IsSort bool `json:"is_sort"` //是否排序（按序号）
 }

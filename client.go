@@ -12,7 +12,6 @@ import (
 	"encoding/hex"
 	"github.com/astaxie/beego/httplib"
 	"crypto/tls"
-	"github.com/astaxie/beego"
 )
 
 
@@ -90,13 +89,28 @@ func (clt *Client) Post(request interface{}, response interface{}) (err error) {
 		return
 	}
 
+	//
+	//	rvalue := reflect.ValueOf(request).Elem()
+	//	rtype := reflect.TypeOf(request).Elem()
+	//	for x := 0; x < rvalue.NumField(); x++ {
+	//		fieldValue := rvalue.Field(x).Interface()
+	//		fieldType := rtype.Field(x).Type
+	//		fieldTag:=rtype.Field(x).Tag.Get("json")
+	//		//todo 通过Tag 判断是否需要取值，默认值为0值，如何判断是用户赋值？还是系统自动的0值？
+	//	}
+	//
+
+
 	hasFile := false//不包含文件
 	for key, value := range dat {
 		if strings.HasSuffix(key, "images[]") {
+			//包含商品图片,sdk规定必须为images[]
 			hasFile = true
 			continue
 		}
 		switch value.(type) {
+		case bool:
+			params[key] = strconv.FormatBool(value.(bool))
 		case string:
 			params[key] = value.(string)
 		case int:
@@ -124,7 +138,6 @@ func (clt *Client) Post(request interface{}, response interface{}) (err error) {
 	linestr = fmt.Sprintf("%s%s", linestr, clt.AppSecret)
 
 
-	beego.Info(linestr)
 
 	//计算字符串MD5,要求小写
 	h := md5.New()
@@ -148,17 +161,14 @@ func (clt *Client) Post(request interface{}, response interface{}) (err error) {
 	//设置签名
 	b.Param("sign", sign)
 	for _, v := range keys {
-		beego.Info(v, params[v])
 		b.Param(v, params[v])
 	}
 
 
 
 
-	//
+	// todo 效率会比json.Unmarshal高？
 	//	HttpResp, err := b.Response()
-	//
-	//
 	//	if err != nil {
 	//		return
 	//	}

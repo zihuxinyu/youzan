@@ -31,6 +31,6 @@ type Sold struct {
 	BuyerNick    string   `json:"buyer_nick,omitempty"`    //买家昵称
 	PageNo       int64   `json:"page_no,omitempty"`        //页码。取值范围：大于零的整数；默认值：1
 	PageSize     int64   `json:"page_size,omitempty"`      //每页条数。取值范围：大于零的整数；默认值：40；最大值：100
-	UseHasNext   bool   `json:"use_has_next,omitempty"`    //是否启用has_next的分页方式，是的话返回的结果中不包含总记录数，但是会新增一个是否存在下一页的的字段
+	UseHasNext   bool   `json:"use_has_next"`    //是否启用has_next的分页方式，是的话返回的结果中不包含总记录数，但是会新增一个是否存在下一页的的字段
 
 }
