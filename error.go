@@ -35,7 +35,7 @@ func (e *Error) Error() string {
 	case 41000:extra = "请求方法的应用级输入参数错误。阅读接口文档，检查调用接口时是否缺少必传参数。"
 	case 50000:extra = "请求方法时业务逻辑发生错误。阅读返回的 error_response 里的 msg 字段，做相应的逻辑调整。"
 	default:
-
+		extra="未知错误。"
 	}
 	return fmt.Sprintf("错误代码: %d, 错误信息: %s, 描述: %s", e.ErrorResponse.Code, e.ErrorResponse.Msg, extra)
 }
