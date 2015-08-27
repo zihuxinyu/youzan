@@ -151,9 +151,9 @@ func (clt *Client) Post(request interface{}, response interface{}) (err error) {
 
 	bytestr, _ := b.Bytes()
 
-//	fmt.Println(string(bytestr))
-	err = json.Unmarshal(bytestr, response)
+ 	err = json.Unmarshal(bytestr, response)
 	if err != nil {
+		fmt.Println(string(bytestr))
 		return
 	}
 

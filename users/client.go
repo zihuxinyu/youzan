@@ -8,9 +8,9 @@ import (
 	"github.com/zihuxinyu/youzan/users/response"
 )
 const (
-	MethodUsersWeixinFollowerGet  string = "kdt.users.weixin.follower.get"// 根据微信粉丝用户的 openid 或 user_id 获取用户信息
-	MethodUsersWeixinFollowerGets  string = "kdt.users.weixin.follower.gets"// 根据多个微信粉丝用户的 openid 或 user_id 获取用户信息
-	MethodUsersWeixinFollowersGet  string = "kdt.users.weixin.followers.get"//  查询微信粉丝用户信息
+	MethodWeixinFollowerGet  string = "kdt.users.weixin.follower.get"// 根据微信粉丝用户的 openid 或 user_id 获取用户信息
+	MethodWeixinFollowerGets  string = "kdt.users.weixin.follower.gets"// 根据多个微信粉丝用户的 openid 或 user_id 获取用户信息
+	MethodWeixinFollowersGet  string = "kdt.users.weixin.followers.get"//  查询微信粉丝用户信息
 )
 
 type Client youzan.Client
@@ -23,7 +23,7 @@ func NewClient(appId, appSecret string, clt *http.Client) *Client {
 func (clt *Client)  WxFollowerGet(req *request.WeixinFollowerGet) (resp response.CrmWeixinFans, err error) {
 
 	if req.Method == "" {
-		req.Method = MethodUsersWeixinFollowerGet
+		req.Method = MethodWeixinFollowerGet
 	}
 
 	type result struct {
@@ -54,7 +54,7 @@ func (clt *Client)  WxFollowerGet(req *request.WeixinFollowerGet) (resp response
 func (clt *Client)  WxFollowerGets(req *request.WeixinFollowerGets) (resp []response.CrmWeixinFans, err error) {
 
 	if req.Method == "" {
-		req.Method = MethodUsersWeixinFollowerGets
+		req.Method = MethodWeixinFollowerGets
 	}
 
 
@@ -62,7 +62,7 @@ func (clt *Client)  WxFollowerGets(req *request.WeixinFollowerGets) (resp []resp
 
 	type result struct {
 		Response struct {
-			         Users []response.CrmWeixinFans `json:"user"`
+			         Users []response.CrmWeixinFans `json:"user"` //todo 官方坑 应为users
 		         } `json:"response"`
 		youzan.Error
 	}
@@ -89,7 +89,7 @@ func (clt *Client)  WxFollowerGets(req *request.WeixinFollowerGets) (resp []resp
 func (clt *Client)  WxFollowersGet(req *request.WeixinFollowersGet) (resp response.CrmWeixinFansList, err error) {
 
 	if req.Method == "" {
-		req.Method = MethodUsersWeixinFollowersGet
+		req.Method = MethodWeixinFollowersGet
 	}
 
 

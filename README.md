@@ -49,13 +49,13 @@ kdt.skus.custom.get 根据外部编号取商品Sku
 
 ##商品类目接口
 
-kdt.itemcategories.get 获取商品分类二维列表
+√ kdt.itemcategories.get 获取商品分类二维列表
 
-kdt.itemcategories.promotions.get 获取商品推广栏目列表
+√ kdt.itemcategories.promotions.get 获取商品推广栏目列表
 
-kdt.itemcategories.tags.get 获取商品自定义标签列表
+√ kdt.itemcategories.tags.get 获取商品自定义标签列表
 
-kdt.itemcategories.tags.getpage 分页获取商品自定义标签列表
+√ kdt.itemcategories.tags.getpage 分页获取商品自定义标签列表
 
 ##物流接口
 

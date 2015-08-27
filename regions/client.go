@@ -8,7 +8,7 @@ import (
 	"github.com/zihuxinyu/youzan/regions/response"
 )
 const (
-	MethodRegionsGet string = "kdt.regions.get" //获取区域地名列表信息
+	MethodGet string = "kdt.regions.get" //获取区域地名列表信息
 )
 
 type Client youzan.Client
@@ -21,7 +21,7 @@ func NewClient(appId, appSecret string, clt *http.Client) *Client {
 func (clt *Client)  Get(req *request.Region) (resp response.Regions, err error) {
 
 	if req.Method == "" {
-		req.Method = MethodRegionsGet
+		req.Method = MethodGet
 	}
 
 	type result struct {

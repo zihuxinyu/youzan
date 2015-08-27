@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	MethodBasicGet string = "kdt.shop.basic.get" //获取店铺基本信息
+	MethodGet string = "kdt.shop.basic.get" //获取店铺基本信息
 )
 type Client youzan.Client
 
@@ -17,10 +17,13 @@ func NewClient(appId, appSecret string, clt *http.Client) *Client {
 }
 
 //获取店铺基本信息
-func (clt *Client)  GetBasic() (resp response.Basic, err error) {
+func (clt *Client)  Get() (resp response.Basic, err error) {
 
-	req := new(request.Basic)
-	req.Method = MethodBasicGet
+	type basic struct {
+		youzan.CommonHeader
+	}
+	req := new(basic)
+	req.Method = MethodGet
 
 	type result struct {
 		response.Basic   `json:"response"`

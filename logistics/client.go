@@ -10,9 +10,9 @@ import (
 )
 
 const (
-	MethodLogisticsTraceSearch string = "kdt.logistics.trace.search"// 物流流转信息查询
-	MethodLogisticsOnlineMarkSign string = "kdt.logistics.online.marksign"// 卖家标记签收
-	MethodLogisticsOnlineConfirm string = "kdt.logistics.online.confirm" // 卖家确认发货
+	MethodTraceSearch string = "kdt.logistics.trace.search"// 物流流转信息查询
+	MethodOnlineMarkSign string = "kdt.logistics.online.marksign"// 卖家标记签收
+	MethodOnlineConfirm string = "kdt.logistics.online.confirm" // 卖家确认发货
 )
 type Client youzan.Client
 
@@ -25,7 +25,7 @@ func NewClient(appId, appSecret string, clt *http.Client) *Client {
 func (clt *Client)  TraceSearch(req *request.TraceSearch) (resp response.TraceSearchResult, err error) {
 
 	if req.Method == "" {
-		req.Method = MethodLogisticsTraceSearch
+		req.Method = MethodTraceSearch
 	}
 
 
@@ -64,7 +64,7 @@ func (clt *Client)  OnlineMarkSign(tid string) (isSuccess bool, err error) {
 	}
 	req := new(OnlineMarkSign)
 
-	req.Method = MethodLogisticsOnlineMarkSign
+	req.Method = MethodOnlineMarkSign
 	req.Tid = tid
 
 
@@ -97,7 +97,7 @@ func (clt *Client)  OnlineMarkSign(tid string) (isSuccess bool, err error) {
 func (clt *Client)  OnlineConfirm(req *request.OnlineConfirm) (isSuccess bool, err error) {
 
 	if req.Method == "" {
-		req.Method = MethodLogisticsOnlineConfirm
+		req.Method = MethodOnlineConfirm
 	}
 
 
