@@ -18,7 +18,7 @@ func NewClient(appId, appSecret string, clt *http.Client) *Client {
 }
 
 //获取区域地名列表信息
-func (clt *Client)  Get(req *request.Region) (regions response.Regions, err error) {
+func (clt *Client)  Get(req *request.Region) (resp response.Regions, err error) {
 
 	if req.Method == "" {
 		req.Method = MethodRegionsGet
@@ -40,7 +40,7 @@ func (clt *Client)  Get(req *request.Region) (regions response.Regions, err erro
 		err = &res.Error
 	}
 
-	regions = res.Regions
+	resp = res.Regions
 
 	return
 }

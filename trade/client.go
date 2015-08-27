@@ -20,14 +20,16 @@ func NewClient(appId, appSecret string, clt *http.Client) *Client {
 }
 
 // 获取单笔交易的信息
-func (clt *Client)  Get(req *request.Single) (resp response.TradeDetail, err error) {
+func (clt *Client)  Get(req *request.Single) (resp response.Trade, err error) {
 
 	if req.Method == "" {
 		req.Method = MethodTradeGet
 	}
 
 	type result struct {
-		response.TradeDetail   `json:"response"`
+		Response struct {
+			         Trade response.Trade   `json:"trade"`
+		         } `json:"response"`
 		youzan.Error
 	}
 
@@ -42,23 +44,24 @@ func (clt *Client)  Get(req *request.Single) (resp response.TradeDetail, err err
 		err = &res.Error
 	}
 
-	resp = res.TradeDetail
+	resp = res.Response.Trade
 
 	return
 }
 
 //卖家关闭一笔交易
-func (clt *Client)  Close(req *request.Close) (resp response.TradeDetail, err error) {
+func (clt *Client)  Close(req *request.Close) (resp response.Trade, err error) {
 
 	if req.Method == "" {
 		req.Method = MethodTradeClose
 	}
 
 	type result struct {
-		response.TradeDetail   `json:"response"`
+		Response struct {
+			         Trade response.Trade   `json:"trade"`
+		         } `json:"response"`
 		youzan.Error
 	}
-
 
 	res := new(result)
 
@@ -70,24 +73,25 @@ func (clt *Client)  Close(req *request.Close) (resp response.TradeDetail, err er
 		err = &res.Error
 	}
 
-	resp = res.TradeDetail
+	resp = res.Response.Trade
 
 	return
 }
 
 
 //修改一笔交易备注
-func (clt *Client)  MemoUpdate(req *request.MemoUpdate) (resp response.TradeDetail, err error) {
+func (clt *Client)  MemoUpdate(req *request.MemoUpdate) (resp response.Trade, err error) {
 
 	if req.Method == "" {
 		req.Method = MethodTradeMemoUpdate
 	}
 
 	type result struct {
-		response.TradeDetail   `json:"response"`
+		Response struct {
+			         Trade response.Trade   `json:"trade"`
+		         } `json:"response"`
 		youzan.Error
 	}
-
 
 	res := new(result)
 
@@ -99,7 +103,7 @@ func (clt *Client)  MemoUpdate(req *request.MemoUpdate) (resp response.TradeDeta
 		err = &res.Error
 	}
 
-	resp = res.TradeDetail
+	resp = res.Response.Trade
 
 	return
 }

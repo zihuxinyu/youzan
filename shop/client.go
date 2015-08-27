@@ -17,7 +17,7 @@ func NewClient(appId, appSecret string, clt *http.Client) *Client {
 }
 
 //获取店铺基本信息
-func (clt *Client)  GetBasic() (basic response.Basic, err error) {
+func (clt *Client)  GetBasic() (resp response.Basic, err error) {
 
 	req := new(request.Basic)
 	req.Method = MethodBasicGet
@@ -38,7 +38,7 @@ func (clt *Client)  GetBasic() (basic response.Basic, err error) {
 		err = &res.Error
 	}
 
-	basic = res.Basic
+	resp = res.Basic
 
 	return
 }
