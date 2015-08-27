@@ -21,7 +21,7 @@
 
 √ 2、AppId / AppSecret 签名通讯协议 适用于：个人开发者、单店铺开发者
 
-全局错误返回码说明
+√ 全局错误返回码说明
 
 ##商品接口
 
@@ -59,11 +59,11 @@ kdt.itemcategories.tags.getpage 分页获取商品自定义标签列表
 
 ##物流接口
 
-kdt.logistics.online.confirm 卖家确认发货
+√ kdt.logistics.online.confirm 卖家确认发货
 
-kdt.logistics.online.marksign 卖家标记签收
+√ kdt.logistics.online.marksign 卖家标记签收
 
-kdt.logistics.trace.search 物流流转信息查询
+√ kdt.logistics.trace.search 物流流转信息查询
 
 ##店铺接口
 
