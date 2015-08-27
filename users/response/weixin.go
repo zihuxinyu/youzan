@@ -1,8 +1,9 @@
 package response
+import "encoding/json"
 
 //微信粉丝用户数据结构
 type CrmWeixinFans struct {
-	UserId       int64 `json:"user_id"`        //微信粉丝用户ID
+	UserId       json.Number   `json:"user_id"`        //微信粉丝用户ID
 	WeixinOpenid string `json:"weixin_openid"` //微信粉丝用户的openid，可用于微信Api
 	Nick         string `json:"nick"`          //微信粉丝用户的昵称
 	Avatar       string `json:"avatar"`        //微信粉丝用户的头像Url
@@ -19,4 +20,12 @@ type CrmWeixinFans struct {
 type CrmUserTag struct {
 	id   string `json:"id"`   //标签ID
 	name string `json:"name"` //标签名
+}
+
+
+type CrmWeixinFansList struct {
+
+	TotalResults json.Number `json:"total_results"`
+	Users        []CrmWeixinFans `json:"users"`
+
 }

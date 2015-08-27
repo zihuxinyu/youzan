@@ -81,11 +81,11 @@ kdt.itemcategories.tags.getpage 分页获取商品自定义标签列表
 
 ##用户接口
 
-kdt.users.weixin.follower.get 根据微信粉丝用户的 openid 或 user_id 获取用户信息
+√ kdt.users.weixin.follower.get 根据微信粉丝用户的 openid 或 user_id 获取用户信息
 
-kdt.users.weixin.follower.gets 根据多个微信粉丝用户的 openid 或 user_id 获取用户信息
+√ kdt.users.weixin.follower.gets 根据多个微信粉丝用户的 openid 或 user_id 获取用户信息
 
-kdt.users.weixin.followers.get 查询微信粉丝用户信息
+√ kdt.users.weixin.followers.get 查询微信粉丝用户信息
 
 ##工具接口
 
