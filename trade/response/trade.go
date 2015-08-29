@@ -148,7 +148,7 @@ type TradeFetch struct {
 
 //订单中使用到的卡券的数据结构
 type  UmpTradeCoupon struct {
-	CouponID          int64 `json:"coupon_id"`           //该组卡券的ID
+	CouponID          string  `json:"coupon_id"`           //该组卡券的ID
 	CouponName        string `json:"coupon_name"`        //该组卡券的名称
 	CouponType        string `json:"coupon_type"`        //卡券的类型。可选值：PROMOCARD（优惠券）、PROMOCODE（优惠码）
 	CouponContent     string `json:"coupon_content"`     //卡券内容。当卡券类型为优惠码时，值为优惠码字符串
@@ -161,7 +161,7 @@ type  UmpTradeCoupon struct {
 
 //订单中使用到的优惠活动的数据结构
 type TradePromotion struct {
-	PromotionID        int64 `json:"promotion_id"`         //该优惠活动的ID
+	PromotionID        string `json:"promotion_id"`         //该优惠活动的ID
 	PromotionName      string `json:"promotion_name"`      //该优惠活动的名称
 	PromotionType      string `json:"promotion_type"`      //优惠的类型。可选值：FULLREDUCE（满减满送）
 	PromotionCondition string `json:"promotion_condition"` //优惠使用条件说明
